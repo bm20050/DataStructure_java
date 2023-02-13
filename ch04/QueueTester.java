@@ -9,7 +9,7 @@ class QueueTester {
 
         while (true) {
         	System.out.println(" "); // 메뉴 구분을 위한 빈 행 추가
-            System.out.printf("현재 데이터 개수: %d / %d\n", s.size(), s.getCapacity());
+            System.out.printf("현재 데이터 개수: %d / %d\n", s.size(), s.getCapacity() - 1);
             System.out.print("(1)인큐　(2)디큐　(3)피크　(4)덤프　(0)종료: ");
 
             int menu = stdIn.nextInt();

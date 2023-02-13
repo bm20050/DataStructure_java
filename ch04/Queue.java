@@ -45,6 +45,7 @@ public class Queue {
     public Point pop() throws EmptyQueueException {
         if (rear - front <= 0)
             throw new EmptyQueueException();            // 큐가 비어있음
+
         front = (front + 1) % capacity;
         Point p = data[front];
 
@@ -80,9 +81,12 @@ public class Queue {
 
     //--- 큐에 쌓여 있는 데이터 개수를 반환 ---//
     public int size() {
-        if (rear > 1)
-            return rear - front + 1;
-        return rear - front;
+        if (rear == front)
+            return 0;
+        else if (rear >= front)
+            return rear - front;
+        else
+            return front - rear;
     }
 
     //--- 큐가 비어있는가? ---//

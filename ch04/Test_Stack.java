@@ -37,7 +37,7 @@ public class Test_Stack {
 
     public static void main(String[] args) {
         Scanner stdIn = new Scanner(System.in);
-        GenericStack s = new GenericStack(8); // 최대 8 개를 push할 수 있는 stack
+        GenericStack s = new GenericStack(3); // 최대 8 개를 push할 수 있는 stack
         Random random = new Random();
         int rndx = 0, rndy = 0;
         Point p = null;

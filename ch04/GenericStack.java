@@ -58,7 +58,7 @@ public class GenericStack {
     public Point peek() throws EmptyGenericStackException {
         if (top <= 0)
             throw new EmptyGenericStackException();
-        return data[top -1];
+        return data[top - 1];
     }
 
     //--- 스택을 비움 ---//
