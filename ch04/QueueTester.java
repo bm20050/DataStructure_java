@@ -5,7 +5,7 @@ import java.util.Scanner;
 class QueueTester {
     public static void main(String[] args) {
         Scanner stdIn = new Scanner(System.in);
-        Queue s = new Queue(2);    // 최대 64개를 인큐할 수 있는 큐
+        Queue s = new Queue(4);    // 최대 64개를 인큐할 수 있는 큐
 
         while (true) {
         	System.out.println(" "); // 메뉴 구분을 위한 빈 행 추가
