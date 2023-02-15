@@ -5,16 +5,17 @@ class MyStack {
 	Point[] data;
     public MyStack() {
         top = 0;
-        data = new Point[100];
+        data = new Point[1000];
     }
-
+    public int getTop() {
+        return top;
+    }
 	public void push(Point p) {
         data[top++] = p;
     }
 	public Point pop() {
         if (top <= 0) {
             System.out.println("-1");
-            return new Point(-1, -1);
         }
         return data[--top];
     }

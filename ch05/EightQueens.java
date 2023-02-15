@@ -1,13 +1,9 @@
 package ch05;
 
-
-import ch04.GenericStack;
-
 public class EightQueens {
     static int row = 8;
     static int col = 8;
     static int[][] array = new int[row][col];
-    static int[] result = new int[10];
     static MyStack s = new MyStack();
 
     public static void nextMove(int[] move, int row) {
@@ -99,11 +95,12 @@ public class EightQueens {
         return true;
     }
 
-    public static void solveQueen(int[][] data) {
+    public static void solveQueen() {
         Point p = new Point(0, 0);
         int x = p.getX();
         int y = p.getY();
-        for(int i = 0; i < col; i++) {
+        int flag = 0;
+        while (!(x == 0  && y >= col)) {
             while (x < row) {
                 while (y < col) {
                     if (checkMove(x, y)) {
@@ -116,25 +113,44 @@ public class EightQueens {
                 }
                 x++;
                 if (y >= col) {
+                    if (s.getTop() != 0){
+                        p = s.pop();
+                        x = p.getX();
+                        y = p.getY();
+                        array[x][y] = 0;
+                        y += 1;
+                    }
+                    else {
+                        flag = 1;
+                        break;
+                    }
+                }
+                if (flag == 1) break;
+            }
+            if (flag == 1) break;
+            print();
+            if (x < row - 1) {
+                while (y < col - 1) {
                     p = s.pop();
                     x = p.getX();
                     y = p.getY();
                     array[x][y] = 0;
-                    y += 1;
-                    continue;
                 }
             }
-            print();
-            for (int j = 0; j < row; j++) {
+            else {
+
                 p = s.pop();
                 x = p.getX();
                 y = p.getY();
                 array[x][y] = 0;
             }
+
             y++;
         }
     }
+    static int num = 0;
     public static void print() {
+        System.out.println(++num);
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
                 System.out.print(array[i][j] + " ");
@@ -145,6 +161,6 @@ public class EightQueens {
     }
 
     public static void main(String[] args) {
-        solveQueen(array);
+        solveQueen();
     }
 }
