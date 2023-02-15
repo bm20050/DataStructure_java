@@ -13,6 +13,13 @@ class MyStack {
         return top;
     }
 
+    public boolean isEmpty() {
+        if (top == 0)
+            return true;
+        else
+            return false;
+    }
+
     public void push(Point p) {
         data[top++] = p;
     }

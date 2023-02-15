@@ -4,7 +4,6 @@ public class EightQueens {
     static int row = 8;
     static int col = 8;
     static int[][] array = new int[row][col];
-    static MyStack s = new MyStack();
 
     public static void nextMove(int[] move, int row) {
 
@@ -97,10 +96,11 @@ public class EightQueens {
 
     public static void solveQueen() {
         Point p = new Point(0, 0);
+        MyStack s = new MyStack();
         int x = p.getX();
         int y = p.getY();
         int flag = 0;
-        while (!(x == 0 && y >= col)) {
+        while (true) {
             while (x < row) {
                 while (y < col) {
                     if (checkMove(x, y)) {
@@ -113,7 +113,7 @@ public class EightQueens {
                 }
                 x++;
                 if (y >= col) {
-                    if (s.getTop() != 0) {
+                    if (!s.isEmpty()) {
                         p = s.pop();
                         x = p.getX();
                         y = p.getY();
