@@ -2,18 +2,22 @@ package ch05;
 
 class MyStack {
     private int top;
-	Point[] data;
+    Point[] data;
+
     public MyStack() {
         top = 0;
         data = new Point[1000];
     }
+
     public int getTop() {
         return top;
     }
-	public void push(Point p) {
+
+    public void push(Point p) {
         data[top++] = p;
     }
-	public Point pop() {
+
+    public Point pop() {
         if (top <= 0) {
             System.out.println("-1");
         }

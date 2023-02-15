@@ -100,7 +100,7 @@ public class EightQueens {
         int x = p.getX();
         int y = p.getY();
         int flag = 0;
-        while (!(x == 0  && y >= col)) {
+        while (!(x == 0 && y >= col)) {
             while (x < row) {
                 while (y < col) {
                     if (checkMove(x, y)) {
@@ -113,19 +113,17 @@ public class EightQueens {
                 }
                 x++;
                 if (y >= col) {
-                    if (s.getTop() != 0){
+                    if (s.getTop() != 0) {
                         p = s.pop();
                         x = p.getX();
                         y = p.getY();
                         array[x][y] = 0;
                         y += 1;
-                    }
-                    else {
+                    } else {
                         flag = 1;
                         break;
                     }
                 }
-                if (flag == 1) break;
             }
             if (flag == 1) break;
             print();
@@ -136,9 +134,7 @@ public class EightQueens {
                     y = p.getY();
                     array[x][y] = 0;
                 }
-            }
-            else {
-
+            } else {
                 p = s.pop();
                 x = p.getX();
                 y = p.getY();
@@ -148,7 +144,9 @@ public class EightQueens {
             y++;
         }
     }
+
     static int num = 0;
+
     public static void print() {
         System.out.println(++num);
         for (int i = 0; i < row; i++) {
