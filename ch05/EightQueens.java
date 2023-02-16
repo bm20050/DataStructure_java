@@ -98,7 +98,7 @@ public class EightQueens {
                         x = p.getX();
                         y = p.getY();
                         array[x][y] = 0;
-                        y += 1;
+                        y++;
                     } else {
                         flag = 1;
                         break;
@@ -106,21 +106,13 @@ public class EightQueens {
                 }
             }
             if (flag == 1) break;
-            print();
-            if (x < row - 1) {
-                while (y < col - 1) {
-                    p = s.pop();
-                    x = p.getX();
-                    y = p.getY();
-                    array[x][y] = 0;
-                }
-            } else {
-                p = s.pop();
-                x = p.getX();
-                y = p.getY();
-                array[x][y] = 0;
-            }
 
+            print();
+
+            p = s.pop();
+            x = p.getX();
+            y = p.getY();
+            array[x][y] = 0;
             y++;
         }
     }

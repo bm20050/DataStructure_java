@@ -6,7 +6,7 @@ class MyStack {
 
     public MyStack() {
         top = 0;
-        data = new Point[1000];
+        data = new Point[100];
     }
 
     public boolean isEmpty() {
