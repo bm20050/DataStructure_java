@@ -38,11 +38,6 @@ public class EightQueens {
         int dx = x;
         int dy = y;
         while (dx >= 0 && dx < row && dy >= 0 && dy < col) {
-            if (dx == x && dy == y) {
-                dx++;
-                dy--;
-                continue;
-            }
             if (array[dx][dy] == 1)
                 return false;
             dx++;
@@ -51,11 +46,6 @@ public class EightQueens {
         dx = x;
         dy = y;
         while (dx >= 0 && dx < row && dy >= 0 && dy < col) {
-            if (dx == x && dy == y) {
-                dx--;
-                dy++;
-                continue;
-            }
             if (array[dx][dy] == 1)
                 return false;
             dx--;
@@ -68,11 +58,6 @@ public class EightQueens {
         int dx = x;
         int dy = y;
         while (dx >= 0 && dx < row && dy >= 0 && dy < col) {
-            if (dx == x && dy == y) {
-                dx++;
-                dy++;
-                continue;
-            }
             if (array[dx][dy] == 1)
                 return false;
             dx++;
@@ -81,11 +66,6 @@ public class EightQueens {
         dx = x;
         dy = y;
         while (dx >= 0 && dx < row && dy >= 0 && dy < col) {
-            if (dx == x && dy == y) {
-                dx--;
-                dy--;
-                continue;
-            }
             if (array[dx][dy] == 1)
                 return false;
             dx--;

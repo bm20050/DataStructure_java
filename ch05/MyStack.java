@@ -9,10 +9,6 @@ class MyStack {
         data = new Point[1000];
     }
 
-    public int getTop() {
-        return top;
-    }
-
     public boolean isEmpty() {
         if (top == 0)
             return true;
