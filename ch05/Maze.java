@@ -86,7 +86,6 @@ public class Maze {
                 int h = j + d.getY();
                 if (g == m && h == n) {
                     mark[g][h] = 2;
-                    System.out.println(d);
                     System.out.println("the term near the exit: " + i + j);
                     System.out.println("exit: " + m + " " + n);
                     return;
