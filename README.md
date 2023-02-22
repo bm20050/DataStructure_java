@@ -5,4 +5,4 @@
 + ch05 재귀 (스택, factorial, hanoi, eight queens, gcd)
 + 02.16 ch05 백트래킹 (미로찾기, Eight Queens)
 + 02.20 ch06 bubble sort, quick sort(non recursion - stack)
-+ 02.22 ch06 selection sort, insertion sort, quick sort(recursion)
++ 02.22 ch06 selection sort, insertion sort, shell sort, quick sort(recursion)
