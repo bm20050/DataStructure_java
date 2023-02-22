@@ -118,6 +118,7 @@ public class EightQueen {
         Point p = new Point(0, 0);
         int x = p.getX();
         int y = p.getY();
+        int flag = 0;
         while (true) {
             while (x < row) {
                 while (y < col) {
@@ -131,13 +132,21 @@ public class EightQueen {
                 }
                 x++;
                 if (y >= col) {
-                    p = s.pop();
-                    x = p.getX();
-                    y = p.getY();
-                    array[x][y] = 0;
-                    y++;
+                    if (!s.isEmpty()) {
+                        p = s.pop();
+                        x = p.getX();
+                        y = p.getY();
+                        array[x][y] = 0;
+                        y++;
+                    }
+                    else{
+                        flag = 1;
+                        break;
+                    }
+
                 }
             }
+            if (flag == 1) break;
             printBoard(row, col, array);
             p = s.pop();
             x = p.getX();
@@ -146,8 +155,10 @@ public class EightQueen {
             y++;
         }
     }
-
+    static int num = 0;
     public static void printBoard(int row, int col, int[][] array) {
+
+        System.out.println(++num);
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[0].length; j++) {
                 System.out.print(array[i][j]);
@@ -158,8 +169,8 @@ public class EightQueen {
     }
 
     public static void main(String[] args) {
-        int row = 4;
-        int col = 4;
+        int row = 8;
+        int col = 8;
         int[][] array = new int[row][col];
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
