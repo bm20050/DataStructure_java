@@ -73,8 +73,7 @@ public class Test_QuickSort {
 			p = s.pop();
 			int l = left = p.getX();
 			int r = right = p.getY();
-			int mid = (l + r) / 2;
-			int pivot = a[mid];
+			int pivot = a[(l + r) / 2];
 			do {
 				while (a[l] < pivot) {
 					l++;
@@ -100,11 +99,12 @@ public class Test_QuickSort {
 
 	public static void main(String[] args) {
 		int nx = 10;
-		int[] x = {5,7,1,4,6,2,3,9,8,0};
-//		for (int ix = 0; ix < 10; ix++) {
-//			double d = Math.random();
-//			x[ix] = (int) (d * 20);
-//		}
+//		int[] x = {5,7,1,4,6,2,3,9,8,0};
+		int[] x = new int[10];
+		for (int ix = 0; ix < 10; ix++) {
+			double d = Math.random();
+			x[ix] = (int) (d * 20);
+		}
 		for (int i = 0; i < nx; i++)
 			System.out.print(" " + x[i]);
 		System.out.println();

@@ -135,7 +135,7 @@ public class Maze {
                 else
                     maze[i][j] = input[i - 1][j - 1];
 
-                mark[i][j] = 0;
+               // mark[i][j] = 0;
             }
         }
 
