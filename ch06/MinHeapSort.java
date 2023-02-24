@@ -28,7 +28,7 @@ class MinHeap implements MaxPQ {
 		for (i = n; i >= 1; i /= 2) {
 			if (i == 1)
 				break; // at root
-			if (x.key > heap[i / 2].key)
+			if (x.key >= heap[i / 2].key)
 				break;// 자바에서 generic array 사용 안됨
 			// move from parent to i					
 			heap[i] = heap[i / 2];
@@ -49,7 +49,7 @@ class MinHeap implements MaxPQ {
 		Element k = heap[n];
 		n--;
 
-		for (i = 1, j = 2; j <= n;) {
+		for (i = 1, j = 2; j <= n; i = j, j *= 2) {
 			if (j > n)
 				if (heap[j].key <= heap[j + 1].key)
 					j++;
@@ -57,8 +57,6 @@ class MinHeap implements MaxPQ {
 			if (k.key > heap[j].key)
 				break;
 			heap[i] = heap[j];
-			i = j;
-			j *= 2;
 		}
 		heap[i] = k;
 		return x;

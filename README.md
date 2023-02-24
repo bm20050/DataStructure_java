@@ -7,3 +7,4 @@
 + 02.20 ch06 bubble sort, quick sort(non recursion - stack)
 + 02.22 ch06 selection sort, insertion sort, shell sort, quick sort(recursion)
 + 02.23 ch06 merge sort, heap sort
++ 02.24 ch06 min heap sort, linked list

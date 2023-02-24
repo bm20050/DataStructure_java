@@ -1,6 +1,8 @@
 package ch06;
 
 
+import java.util.Stack;
+
 class Point {
 	private int ix;
 	private int iy;
@@ -26,31 +28,7 @@ class Point {
 		iy = y;
 	}
 }
-class MyStack3 {
-	private Point[] data;
-	private int top;
-	public MyStack3(int x) {
-		top = 0;
-		data = new Point[x];
-	}
-	public void push(Point p) {
-		data[top++] = p;
-	}
-	public Point pop() {
-		if (top <= 0) {
-			System.out.println("-1");
-		}
-		return data[--top];
-	}
-	public boolean isEmpty() {
-		if (top == 0)
-			return true;
-		else
-			return false;
-	}
 
-
-}
 public class Test_QuickSort {
 
 
@@ -65,8 +43,8 @@ public class Test_QuickSort {
 
 	// --- 퀵 정렬(비재귀 버전)---//
 	static void quickSort(int[] a, int left, int right) {
-		MyStack3 s = new MyStack3(10);
 		Point p = new Point(left, right);
+		Stack<Point> s = new Stack<>();
 		s.push(p);
 
 		while (!s.isEmpty()) {

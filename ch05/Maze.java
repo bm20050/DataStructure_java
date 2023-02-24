@@ -1,5 +1,8 @@
 package ch05;
 
+import java.util.Arrays;
+import java.util.Stack;
+
 class MyPoint {
     private int x;
     private int y;
@@ -24,41 +27,13 @@ class MyPoint {
     }
 }
 
-class MyStack2 {
-    private int top;
-    MyPoint[] data;
-
-    public MyStack2() {
-        top = 0;
-        data = new MyPoint[1000];
-    }
-
-    public boolean isEmpty() {
-        if (top == 0)
-            return true;
-        else
-            return false;
-    }
-
-    public void push(MyPoint p) {
-        data[top++] = p;
-    }
-
-    public MyPoint pop() {
-        if (top <= 0) {
-            System.out.println("-1");
-        }
-        return data[--top];
-    }
-}
-
 public class Maze {
     static int maze[][] = new int[100][100];
     static int mark[][] = new int[100][100];
 
     public static void path(int m, int n) {
         mark[1][1] = 2;
-        MyStack2 s = new MyStack2();
+        Stack<MyPoint> s = new Stack<>();
 
         Point N = new Point(-1, 0);
         Point NE = new Point(-1, 1);
@@ -80,7 +55,8 @@ public class Maze {
             int i = p.getX();
             int j = p.getY();
             Point d = p.getDirection();
-            int idx = 0;
+            int idx = Arrays.asList(directions).indexOf(d);
+
             while (idx < directions.length) {
                 int g = i + d.getX();
                 int h = j + d.getY();
