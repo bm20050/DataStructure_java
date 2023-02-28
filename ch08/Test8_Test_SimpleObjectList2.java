@@ -1,9 +1,8 @@
-package ch08_1;
+package ch08;
 
-import java.util.Comparator;
 import java.util.Scanner;
 
-class SimpleObject {
+class SimpleObject implements Comparable<SimpleObject>{
     static final int NO = 1; // 번호를 읽어 들일까요?
     static final int NAME = 2; // 이름을 읽어 들일까요?
 
@@ -17,7 +16,7 @@ class SimpleObject {
 
     // --- 문자열 표현을 반환 ---//
     public String toString() {
-        return "(" + no + ") " + name;
+        return "(" + no + ")" + name + "  ";
     }
 
     public String getNo() {
@@ -28,6 +27,7 @@ class SimpleObject {
         return name;
     }
 
+    @Override
     public int compareTo(SimpleObject o) {
         if (this.no.compareTo(o.no) < 0)
             return -1;
@@ -76,25 +76,26 @@ class SimpleObject {
 //    }
 }
 
-class ObjectNode {
+class SimpleObjectNode {
     SimpleObject data;
-    ObjectNode link;
+    SimpleObjectNode link;
 
-    public ObjectNode(SimpleObject element) {
+    public SimpleObjectNode(SimpleObject element) {
+        data = element;
         link = null;
     }
 }
 
-class LinkedList {
-    ObjectNode first;
+class SimpleObjectLinkedList {
+    SimpleObjectNode first;
 
-    public LinkedList() {
+    public SimpleObjectLinkedList() {
         first = null;
     }
 
     public boolean Delete(String data) //delete the element
     {
-        ObjectNode p = first, q = null;
+        SimpleObjectNode p = first, q = null;
         if (p == null)
             return false;
 
@@ -118,7 +119,7 @@ class LinkedList {
     }
 
     public void Show() { // 전체 리스트를 순서대로 출력한다.
-        for (ObjectNode p = first; p != null; p = p.link) {
+        for (SimpleObjectNode p = first; p != null; p = p.link) {
             System.out.print(p.data);
         }
         System.out.println();
@@ -126,8 +127,8 @@ class LinkedList {
 
     public void Add(SimpleObject element) //임의 값을 삽입할 때 리스트가 오름차순으로 정렬이 되도록 한다
     {
-        ObjectNode newNode = new ObjectNode(element);
-        ObjectNode p = first, q = null;
+        SimpleObjectNode newNode = new SimpleObjectNode(element);
+        SimpleObjectNode p = first, q = null;
         if (p == null) {
             first = newNode;
             return;
@@ -153,7 +154,7 @@ class LinkedList {
     }
 
     public boolean Search(String data) { // 전체 리스트를 순서대로 출력한다.
-        for (ObjectNode p = first; p != null; p = p.link) {
+        for (SimpleObjectNode p = first; p != null; p = p.link) {
             if (p.data.getNo().compareTo(data) == 0)
                 return true;
         }
@@ -161,7 +162,7 @@ class LinkedList {
     }
 }
 
-public class Test8_Test_SimpleObjectList {
+public class Test8_Test_SimpleObjectList2 {
 
     enum Menu {
         Add("삽입"),
@@ -209,7 +210,7 @@ public class Test8_Test_SimpleObjectList {
     public static void main(String[] args) {
         Menu menu;                                // 메뉴
         System.out.println("Linked List");
-        LinkedList l = new LinkedList();
+        SimpleObjectLinkedList l = new SimpleObjectLinkedList();
         Scanner sc = new Scanner(System.in);
         // SimpleObject data = 0;
         System.out.println("inserted");
