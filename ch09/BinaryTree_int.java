@@ -33,6 +33,22 @@ class Tree {
         return temp;
     }
 
+    TreeNode findParent(TreeNode current) {
+        TreeNode p = root, q = null;
+
+        while (p != current) {
+            if (current.data < p.data) {
+                q = p;
+                p = p.LeftChild;
+            } else {
+                q = p;
+                p = p.RightChild;
+            }
+        }
+
+        return q;
+    }
+
     public boolean isLeafNode(TreeNode current) {
         if (current.LeftChild == null && current.RightChild == null) return true;
         else return false;
@@ -128,59 +144,29 @@ class Tree {
                         q.RightChild = null;
                     return true;
                 }
-//                } else if (p.LeftChild == null && p.RightChild != null) {
-//                    if (p.data < q.data)
-//                        q.LeftChild = p.RightChild;
-//                    else
-//                        q.RightChild = p.RightChild;
-//                    return true;
-//                } else if (p.LeftChild != null && p.RightChild == null) {
-//                    if (p.data < q.data)
-//                        q.LeftChild = p.LeftChild;
-//                    else
-//                        q.RightChild = p.LeftChild;
-//                    return true;
-//                }
+                 else if (p.LeftChild == null && p.RightChild != null) {
+                    if (p.data < q.data)
+                        q.LeftChild = p.RightChild;
+                    else
+                        q.RightChild = p.RightChild;
+                    return true;
+                } else if (p.LeftChild != null && p.RightChild == null) {
+                    if (p.data < q.data)
+                        q.LeftChild = p.LeftChild;
+                    else
+                        q.RightChild = p.LeftChild;
+                    return true;
+                }
                 else {
-                    TreeNode r = p.RightChild;
-                    TreeNode s = p;
+                    TreeNode temp = inorderSucc(p);
+                    TreeNode tempParent = findParent(temp);
 
-                    while (r.LeftChild != null) {
-                        s = r;
-                        r = r.LeftChild;
-                    }
+                    p.data = temp.data;
 
-                    TreeNode temp = r;
-
-                    if (r.RightChild != null) {
-                        if (s.data < r.data)
-                            s.RightChild = r.RightChild;
-                        else
-                            s.LeftChild = r.RightChild;
-                    } else {
-                        if (s.data < r.data)
-                            s.RightChild = null;
-                        else
-                            s.LeftChild = null;
-                    }
-                    if (q != null) {
-                        if (p.data < q.data)
-                            q.LeftChild = temp;
-                        else
-                            q.RightChild = temp;
-
-                        if (p.LeftChild != null)
-                            temp.LeftChild = p.LeftChild;
-                        else
-                            temp.LeftChild = null;
-
-                        if (p.RightChild != null)
-                            temp.RightChild = p.RightChild;
-                        else
-                            temp.RightChild = null;
-                    } else {
-                        p.data = temp.data;
-                    }
+                    if (temp.data < tempParent.data)
+                        tempParent.LeftChild = temp.RightChild;
+                    else
+                        tempParent.RightChild = temp.RightChild;
 
                     return true;
                 }
@@ -190,7 +176,17 @@ class Tree {
     }
 
     boolean search(int num) {
-        return true;
+        TreeNode p = root;
+        while (p != null) {
+            if (num < p.data) {
+                p = p.LeftChild;
+            } else if (num > p.data) {
+                p = p.RightChild;
+            } else {
+                return true;
+            }
+        }
+        return false;
     }
 }
 
@@ -263,11 +259,10 @@ public class BinaryTree_int {
                     num = stdIn.nextInt();
                     if (!t.delete(num))
                         System.out.println("삭제할 데이터가 없습니다.");
-                    ;
                     break;
 
                 case Search:           // 노드 검색
-                    System.out.println("검색할 데이터:: ");
+                    System.out.print("검색할 데이터:: ");
                     num = stdIn.nextInt();
                     result = t.search(num);
                     if (result == true)
