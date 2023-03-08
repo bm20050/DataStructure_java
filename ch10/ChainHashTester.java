@@ -9,11 +9,11 @@ class ChainHashTester {
 
     //--- 데이터(회원번호＋이름) ---//
     static class Data {
-        static final int NO   = 1;        // 번호를 읽어 들일까요?
+        static final int NO = 1;        // 번호를 읽어 들일까요?
         static final int NAME = 2;        // 이름을 읽어 들일까요?
 
         private Integer no;                      // 회원번호(키값)
-        private String  name;                    // 이름
+        private String name;                    // 이름
 
         //--- 키값 ---//
         Integer keyCode() {
@@ -42,10 +42,10 @@ class ChainHashTester {
 
     //--- 메뉴 열거형 ---//
     enum Menu {
-        ADD(      "추가"),
-        REMOVE(   "삭제"),
-        SEARCH(   "검색"),
-        DUMP(     "표시"),
+        ADD("추가"),
+        REMOVE("삭제"),
+        SEARCH("검색"),
+        DUMP("표시"),
         TERMINATE("종료");
 
         private final String message;            // 표시할 문자열
@@ -88,29 +88,29 @@ class ChainHashTester {
 
         do {
             switch (menu = SelectMenu()) {
-             case ADD :                               // 추가
+                case ADD:                               // 추가
                     data = new Data();
                     data.scanData("추가", Data.NO | Data.NAME);
-                     hash.add(data.keyCode(), data);
-                     break;
+                    hash.add(data.keyCode(), data);
+                    break;
 
-             case REMOVE :                       // 삭제
-                     temp.scanData("삭제", Data.NO);
-                     hash.remove(temp.keyCode());
-                     break;
+                case REMOVE:                       // 삭제
+                    temp.scanData("삭제", Data.NO);
+                    hash.remove(temp.keyCode());
+                    break;
 
-             case SEARCH :                       // 검색
+                case SEARCH:                       // 검색
                     temp.scanData("검색", Data.NO);
-                     Data t = hash.search(temp.keyCode());
-                     if (t != null)
-                         System.out.println("그 키를 갖는 데이터는 " + t + "입니다.");
+                    Data t = hash.search(temp.keyCode());
+                    if (t != null)
+                        System.out.println("그 키를 갖는 데이터는 " + t + "입니다.");
                     else
-                         System.out.println("해당 데이터가 없습니다.");
-                     break;
+                        System.out.println("해당 데이터가 없습니다.");
+                    break;
 
-             case DUMP :                            // 표시
-                     hash.dump();
-                     break;
+                case DUMP:                            // 표시
+                    hash.dump();
+                    break;
             }
         } while (menu != Menu.TERMINATE);
     }
