@@ -10,3 +10,5 @@
 + 02.24 ch06 min heap sort, linked list
 + 02.27 ch08 Linked List, Object Linked List
 + 02.28 ch08 Circular Doubly Linked List
++ 03.06 ch09 Binary Tree, Simple Object Binary Tree
++ 03.08 ch10 Open Hash, Chain Hash
