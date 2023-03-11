@@ -1,8 +1,6 @@
-package ch10_1;
+package EightQueens.ch10_1;
 
 import java.util.Comparator;
-//hash node가 student 객체일 때를 구현하는 과제
-//체인법에 의한 해시
 import java.util.Scanner;
 
 class SimpleObject {
@@ -14,7 +12,7 @@ class SimpleObject {
         this.sno = sno;
         this.sname = sname;
     }
-    public int keyCode() {
+    public Integer keyCode() {
         return Integer.parseInt(sno);
     }
     public String keyValue() {
@@ -26,19 +24,19 @@ class SimpleObject {
     }
 
     // --- 회원번호로 순서를 매기는 comparator ---//
-    public static final Comparator<SimpleObject2> NO_ORDER = new NoOrderComparator();
+    public static final Comparator<SimpleObject> NO_ORDER = new NoOrderComparator();
 
-    private static class NoOrderComparator implements Comparator<SimpleObject2> {
-        public int compare(SimpleObject2 d1, SimpleObject2 d2) {
-            return (d1.sno.compareTo(d2.sno) > 0) ? 1 : ((d1.sno.compareTo(d2.sno) < 0)) ? -1 : 0;
+    private static class NoOrderComparator implements Comparator<SimpleObject> {
+        public int compare(SimpleObject d1, SimpleObject d2) {
+            return (d1.sno.compareTo(d2.sno) > 0) ? 1 : ((d1.sno.compareTo(d2.sno) < 0)) ? -1 : NAME_ORDER.compare(d1, d2);
         }
     }
 
     // --- 이름으로 순서를 매기는 comparator ---//
-    public static final Comparator<SimpleObject2> NAME_ORDER = new NameOrderComparator();
+    public static final Comparator<SimpleObject> NAME_ORDER = new NameOrderComparator();
 
-    private static class NameOrderComparator implements Comparator<SimpleObject2> {
-        public int compare(SimpleObject2 d1, SimpleObject2 d2) {
+    private static class NameOrderComparator implements Comparator<SimpleObject> {
+        public int compare(SimpleObject d1, SimpleObject d2) {
             return (d1.sname.compareTo(d2.sname) > 0) ? 1 : ((d1.sname.compareTo(d2.sname) < 0)) ? -1 : 0;
         }
     }
@@ -52,7 +50,7 @@ class ChainHash2 {
 
         //--- 생성자(constructor) ---//
         public Node2(SimpleObject s) {
-            this.data = new SimpleObject(s);
+            this.data = s;
             this.next = null;
         }
 
@@ -67,6 +65,9 @@ class ChainHash2 {
             this.next = null;
         }
 
+        SimpleObject getData() {
+            return data;
+        }
         //--- 키값을 반환 ---//
         Integer getKey() {
             return data.keyCode();
@@ -99,51 +100,59 @@ class ChainHash2 {
 
     //--- 해시값을 구함 ---//
     public int hashValue(Object key) {
-        int hash = 11;
+        int hash = 1;
         hash = 31 * hash * (int) key;
         hash = hash * hash;
         return hash;
-
-
     }
 
     //--- 키값이 key인 요소를 검색(데이터를 반환) ---//
-    public String search(int key) {
-        int hash = hashValue(key);            // 검색할 데이터의 해시값
+    public boolean search(SimpleObject s, Comparator<? super SimpleObject> c) {
+        int hash = hashValue(s.keyCode()) % 11;            // 검색할 데이터의 해시값
         Node2 p = table[hash];            // 선택 노드
 
         while (p != null) {
-            if (p.getKey() == key)
-                return p.getValue();                // 검색 성공
+            if (c.compare(p.getData(), s) == 0)
+                return true;                // 검색 성공
             p = p.next;                             // 다음 노드를 선택
         }
-        return null;                                // 검색 실패
+        return false;                                // 검색 실패
     }
 
     //--- 키값이 key인 데이터를 data의 요소로 추가 ---//
-    public int add(SimpleObject st) {
-        int hash = hashValue(st.keyCode()) % 9;            // 추가할 데이터의 해시값
+    public boolean add(SimpleObject s, Comparator<? super SimpleObject> c) {
+        int hash = hashValue(s.keyCode()) % 11;            // 추가할 데이터의 해시값
         Node2 p = table[hash];            // 선택 노드
 //구현 필요함
         while (p != null) {
-            if (p.getKey() == Integer.parseInt(st.sno))
-                return 1;
+            if (c.compare(p.getData(), s) == 0)
+                return false;
             p = p.next;
         }
-        Node2 temp = new Node2(st, table[hash]);
+        Node2 temp = new Node2(s, table[hash]);
         table[hash] = temp;
-        return 0;
+        return true;
     }
 
     //--- 키값이 key인 요소를 삭제 ---//
-    public int remove(int key) {
-        int hash = hashValue(key);            // 삭제할 데이터의 해시값
+    public boolean remove(SimpleObject s, Comparator<? super SimpleObject> c) {
+        int hash = hashValue(s.keyCode()) % 11;            // 삭제할 데이터의 해시값
         Node2 p = table[hash];            // 선택 노드
         Node2 pp = null;                  // 바로 앞의 선택 노드
         //구현실습
+        while (p != null) {
+            if (c.compare(p.getData(), s) == 0) {
+                if (pp == null)
+                    table[hash] = p.next;
+                else
+                    pp.next = p.next;
+                return true;
+            }
+            pp = p;
+            p = p.next;
+        }
 
-
-        return 1;                             // 찾는 키값이 없음
+        return false;                             // 찾는 키값이 없음
     }
 
     //--- 해시 테이블을 덤프(dump) ---//
@@ -170,7 +179,6 @@ public class Chap11_Test_ChainHash {
         int select = 0;
         final int count = 3;
         while (select != 6) {
-            System.out.println(1);
             System.out.println(
                     "SimpleChainHash. Select 1:Add, 2. Delete, 3:Search, 4. PrintDump, 5. Quit =>");
 
@@ -181,7 +189,6 @@ public class Chap11_Test_ChainHash {
                     String sno = null;
                     String sname = null;
                     for (int ix = 0; ix < count; ix++) {
-
                         System.out.println("입력 데이터(sno, sname):: ");
 
                         System.out.print("번호: ");
@@ -189,22 +196,37 @@ public class Chap11_Test_ChainHash {
 
                         System.out.print("이름: ");
                         sname = stdIn.next();
-                        System.out.print("sno =  " + sno);
-                        input[ix] = new SimpleObject(sno, sname);
-                        hash.add(input[ix]);
 
-                        System.out.print(" " + input[ix]);
+                        System.out.println("sno =  " + sno);
+                        input[ix] = new SimpleObject(sno, sname);
+                        if (!hash.add(input[ix], SimpleObject.NO_ORDER))
+                            System.out.println("입력한 데이터가 이미 존재합니다.");
+                        else
+                            System.out.println("입력한 데이터 " + input[ix] + " 가 입력되었습니다.");
                     }
                     break;
                 case 2:
+                    System.out.println("삭제할 데이터(sno, sname):: ");
+                    System.out.print("번호: ");
+                    sno = stdIn.next();
+                    System.out.print("이름: ");
+                    sname = stdIn.next();
+
+                    if (hash.remove(new SimpleObject(sno, sname), SimpleObject.NO_ORDER))
+                        System.out.println("삭제되었습니다.");
+                    else
+                        System.out.println("삭제할 데이터가 없습니다.");
                     // Delete
                     break;
                 case 3:
                     System.out.println("Search Value:: ");
-                    int val = stdIn.nextInt();
-                    String v = hash.search(val);
-                    if (v != null)
-                        System.out.println(v);
+                    System.out.print("번호: ");
+                    sno = stdIn.next();
+                    System.out.print("이름: ");
+                    sname = stdIn.next();
+                    SimpleObject s = new SimpleObject(sno, sname);
+                    if (hash.search(s, SimpleObject.NO_ORDER))
+                        System.out.println("검색한 데이터 " + s + " 가 존재합니다. ");
                     else
                         System.out.println("데이터가 없습니다.");
                     break;
