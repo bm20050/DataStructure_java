@@ -16,6 +16,7 @@ class SimpleObject2 {
 		this.sno = sno;
 		this.sname = sname;
 	}
+
 	public String getSno() {
 		return sno;
 	}
@@ -29,7 +30,7 @@ class SimpleObject2 {
 
 	private static class NoOrderComparator implements Comparator<SimpleObject2> {
 		public int compare(SimpleObject2 d1, SimpleObject2 d2) {
-			return (d1.sno.compareTo(d2.sno) > 0) ? 1 : ((d1.sno.compareTo(d2.sno) < 0)) ? -1 : 0;
+			return (d1.sno.compareTo(d2.sno) > 0) ? 1 : ((d1.sno.compareTo(d2.sno) < 0)) ? -1 : NAME_ORDER.compare(d1, d2);
 		}
 	}
 
@@ -76,6 +77,10 @@ class OpenHash<V> {
 		void set(V data, Status stat) {
 			this.data = data; // 데이터
 			this.stat = stat; // 상태
+		}
+
+		public SimpleObject2 getData() {
+			return (SimpleObject2)data;
 		}
 
 		// --- 상태를 설정 ---//
@@ -126,7 +131,7 @@ class OpenHash<V> {
 		Bucket<V> p = table[hash]; // 주목 버킷
 
 		for (int i = 0; p.stat != Status.EMPTY && i < size; i++) {
-			if (p.stat == Status.OCCUPIED && c.compare((SimpleObject2)p.getValue(), o) == 0)
+			if (p.stat == Status.OCCUPIED && c.compare(p.getData(), o) == 0)
 				return p;
 			hash = rehashValue(hash); // 재해시
 			p = table[hash];
@@ -255,7 +260,10 @@ public class Chap11_Test_OpenHash {
 
 			case REMOVE: // 삭제
 				temp.scanSimpleObject2("삭제");
-				hash.remove(temp, SimpleObject2.NO_ORDER);
+				if (hash.remove(temp, SimpleObject2.NO_ORDER) == 1)
+					System.out.println("삭제할 데이터가 없습니다.");
+				else
+					System.out.println("입력한 데이터가 삭제되었습니다.");
 				break;
 
 			case SEARCH: // 검색
